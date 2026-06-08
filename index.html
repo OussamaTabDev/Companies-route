@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Casablanca Tech Guide | Casabus Routes + Companies</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f0f2f5;
+      color: #1e293b;
+      padding: 20px 16px 48px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header & hero */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      color: white;
+      padding: 28px 24px;
+      border-radius: 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 12px 20px -10px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+
+    .hero .starting-point {
+      background: rgba(255,255,255,0.15);
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 12px 0 8px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    /* tabs / quick filters */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 60px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .filter-btn {
+      background: #eef2ff;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #1e293b;
+    }
+
+    .filter-btn.active {
+      background: #1e3a5f;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .filter-btn:hover {
+      background: #cbd5e1;
+    }
+
+    /* route summary card */
+    .route-summary {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 6px solid #2c7da0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .route-summary h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .route-steps {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 20px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin: 12px 0;
+    }
+
+    .badge-primary {
+      background: #1e3a5f;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .company-card {
+      background: white;
+      border-radius: 24px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      border: 1px solid #e9eef3;
+      cursor: pointer;
+    }
+
+    .company-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -12px rgba(0,0,0,0.1);
+      border-color: #cbd5e1;
+    }
+
+    .priority-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 30px;
+      display: inline-block;
+      background: #e2e3e8;
+      color: #1e293b;
+    }
+
+    .priority-High {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .priority-Medium {
+      background: #fff3e3;
+      color: #b45309;
+    }
+
+    .priority-Low {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .company-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 8px 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .type-sector {
+      font-size: 0.75rem;
+      color: #475569;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .roles {
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      margin: 12px 0;
+      font-weight: 500;
+    }
+
+    .route-link {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    .map-icon {
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      color: #5b6e8c;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🇲🇦 Casablanca Tech Compass</h1>
+    <div class="starting-point">📍 START: Caserne Mly Youssef (Chellalate) | Buses L902 / L904</div>
+    <p>63 tech companies, 87% in Sidi Maarouf. Quick access to routes + Google Maps directions.<br>
+    ⚡ Click any company → see route & open map for travel</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">🏢 All (63)</button>
+    <button class="filter-btn" data-filter="High">🔥 High Priority</button>
+    <button class="filter-btn" data-filter="Medium">📌 Medium Priority</button>
+    <button class="filter-btn" data-filter="Sidi Maarouf">📍 Sidi Maarouf Hub</button>
+  </div>
+
+  <!-- Route quick reference card -->
+  <div class="route-summary">
+    <h3>🚌 MAIN ROUTE → SIDI MAAROUF (Casanearshore Park) ~60-75 min</h3>
+    <div class="route-steps">
+      🟢 L902 (toward Sidi Moumen) from Caserne Mly Youssef → Get off at <strong>SIDI MOUMEN Terminus</strong><br>
+      🟢 Transfer <strong>L17 or L97</strong> (toward Maarif) → Get off at <strong>PLACE SRAGHNA / EL FIDA</strong><br>
+      🟢 Transfer <strong>L31</strong> (toward Sidi Maarouf) → <strong>Arrive SIDI MAAROUF</strong> (Casanearshore Park)
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 12px;">
+      <div><span class="badge-primary">💰 Cost ~15-18 DH</span></div>
+      <div><span class="badge-primary">🔄 Alternative: L902 → L900 → L7 via City Center</span></div>
+      <div><span class="badge-primary">🚆 Faster: Train from Aïn Harrouda ONCF to Casa-Voyageurs</span></div>
+    </div>
+    <p style="margin-top: 12px; font-size: 0.85rem;">✅ <strong>Other areas:</strong> Maarif (L902→L38/L60/L97), Sidi Belyout (L902→L17→Marina), Hay Hassani (L902→L17/L38). For AVL Maroc (Rabat) take train from Casa-Voyageurs to Rabat-Agdal.</p>
+  </div>
+
+  <div id="companiesGrid" class="grid"></div>
+  <footer>
+    ⚡ Click any company card → Google Maps route from Caserne Mly Youssef to company area (approximate). <br>
+    🚏 All bus instructions + priority areas included. Casabus info: 0520 55 20 55 | www.casabus.ma
+  </footer>
+</div>
+
+<script>
+  // Full dataset extracted from Excel (Companies + details, addresses + area classification)
+  const companiesData = [
+    { name: "Weglob", type: "Startup", sector: "SaaS / Voice AI / Automation", area: "Sidi Maarouf", priority: "High", roles: "Backend, AI Integration, Full-Stack", notes: "Callcorex, AppointWorks", address: "Casanearshore Park, Sidi Maarouf" },
+    { name: "Kertys / Digitalent", type: "Established", sector: "Digital Transformation / AI", area: "Sidi Maarouf", priority: "High", roles: "Software Dev, AI Solutions", address: "Casanearshore Park" },
+    { name: "Finarix", type: "Startup", sector: "Fintech / AI", area: "Sidi Maarouf", priority: "High", roles: "AI Developer, Backend, Python", address: "Sidi Maarouf Tech Hub" },
+    { name: "Voxenleads", type: "Startup", sector: "AI / Conversational AI", area: "Sidi Maarouf", priority: "High", roles: "AI Engineer, Backend", address: "Near Casanearshore" },
+    { name: "ChartStud", type: "Startup", sector: "AI / Data Visualization", area: "Sidi Maarouf", priority: "High", roles: "AI/ML, Data Engineer", address: "Sidi Maarouf" },
+    { name: "FAIN", type: "Startup", sector: "Fintech / AI", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, AI, Backend", address: "Casanearshore Park" },
+    { name: "KONSTATEC", type: "Startup", sector: "InsurTech / AI / SaaS", area: "Sidi Maarouf", priority: "High", roles: "AI Engineer, Backend", address: "Sidi Maarouf" },
+    { name: "DashMaestro", type: "Startup", sector: "BI / AI / SaaS", area: "Sidi Maarouf", priority: "High", roles: "Backend, Data Engineer", address: "Casanearshore" },
+    { name: "DabaDoc", type: "Startup", sector: "HealthTech", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, Backend, Mobile", address: "Sidi Maarouf" },
+    { name: "MenuVivid", type: "Startup", sector: "FoodTech / Digital Menu", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, React, Node.js", address: "Near Casanearshore" },
+    { name: "Chari", type: "Startup", sector: "E-commerce / FinTech", area: "Sidi Maarouf", priority: "High", roles: "Backend, Full-Stack", address: "Sidi Maarouf" },
+    { name: "Inyad", type: "Startup", sector: "SaaS / SMB Apps", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, React, Mobile", address: "Casanearshore Park" },
+    { name: "Admiral Digital Consulting", type: "Agency", sector: "AI / BI / Big Data", area: "Sidi Maarouf", priority: "High", roles: "AI Consultant, Data Engineer", address: "Sidi Maarouf" },
+    { name: "BRINGO", type: "Startup", sector: "Generative AI", area: "Sidi Maarouf", priority: "High", roles: "AI Dev, GenAI", address: "Sidi Maarouf" },
+    { name: "BV Lab", type: "Startup", sector: "AI Development", area: "Sidi Maarouf", priority: "High", roles: "AI Engineer, ML", address: "Casanearshore" },
+    { name: "Infomineo", type: "Established", sector: "AI / Research", area: "Sidi Maarouf", priority: "High", roles: "AI Developer, Research", address: "Sidi Maarouf" },
+    { name: "BerryNoon", type: "Agency", sector: "Software/AI/Cybersecurity", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, AI Integrator", address: "Sidi Maarouf" },
+    { name: "Taillis Labs", type: "Agency", sector: "Software Development", area: "Sidi Maarouf", priority: "High", roles: "Full-Stack, DevOps", address: "Casanearshore" },
+    { name: "Oracle Morocco", type: "Multinational", sector: "Enterprise/R&D", area: "Sidi Maarouf", priority: "High", roles: "Software Engineer, Java", address: "Casanearshore Park, Sidi Maarouf" },
+    { name: "Capgemini", type: "Multinational", sector: "IT Services", area: "Sidi Maarouf", priority: "High", roles: "Software Engineer, Associate", address: "Casanearshore Park" },
+    { name: "Yakeey", type: "Startup", sector: "PropTech/FinTech", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack, Backend", address: "Sidi Maarouf" },
+    { name: "Agenz", type: "Startup", sector: "PropTech/Data", area: "Sidi Maarouf", priority: "Medium", roles: "Backend, API", address: "Sidi Maarouf" },
+    { name: "Logik.io", type: "Startup", sector: "E-commerce/Headless", area: "Sidi Maarouf", priority: "Medium", roles: "Backend, API", address: "Sidi Maarouf" },
+    { name: "Cathedis", type: "Startup", sector: "E-commerce/Logistics", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack, E-commerce", address: "Sidi Maarouf" },
+    { name: "Freterium", type: "Startup", sector: "Logistics/SaaS", area: "Sidi Maarouf", priority: "Medium", roles: "Backend, SaaS", address: "Casanearshore" },
+    { name: "Mumtaz.ma", type: "Startup", sector: "Marketplace", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "GeneraTour", type: "Startup", sector: "TravelTech/AI", area: "Sidi Maarouf", priority: "Medium", roles: "AI, Full-Stack", address: "Sidi Maarouf" },
+    { name: "ShearNOW", type: "Startup", sector: "SaaS/BeautyTech", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack, React", address: "Sidi Maarouf" },
+    { name: "DIGISHARE", type: "Startup", sector: "MarTech", area: "Sidi Maarouf", priority: "Medium", roles: "Backend, API", address: "Sidi Maarouf" },
+    { name: "FindCharge", type: "Startup", sector: "CleanTech/Mobility", area: "Sidi Maarouf", priority: "Medium", roles: "Mobile, Full-Stack", address: "Sidi Maarouf" },
+    { name: "Bassite", type: "Startup", sector: "Smart City/IoT", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack, Bot", address: "Sidi Maarouf" },
+    { name: "ATLAN Space", type: "Startup", sector: "Drones/AI/Embedded", area: "Sidi Maarouf", priority: "Medium", roles: "AI, Python", address: "Sidi Maarouf" },
+    { name: "Vital Scan", type: "Startup", sector: "HealthTech/AI/Hardware", area: "Sidi Maarouf", priority: "Medium", roles: "AI, Full-Stack", address: "Sidi Maarouf" },
+    { name: "SGMG", type: "Startup", sector: "Geomatics/GIS", area: "Sidi Maarouf", priority: "Medium", roles: "Python, Data Analyst", address: "Sidi Maarouf" },
+    { name: "KoolSkools", type: "Startup", sector: "EdTech", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "DAWI", type: "Startup", sector: "HealthTech", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "Weego", type: "Startup", sector: "Mobility/MaaS", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack, API", address: "Sidi Maarouf" },
+    { name: "H-in-Q", type: "Agency", sector: "Digital Strategy/AI", area: "Sidi Maarouf", priority: "Medium", roles: "AI Developer", address: "Sidi Maarouf" },
+    { name: "AFD.Tech", type: "Established", sector: "Tech Consulting", area: "Sidi Maarouf", priority: "Medium", roles: "Software Dev", address: "Sidi Maarouf" },
+    { name: "Sofrecom Maroc", type: "Established", sector: "Telecom/Digital", area: "Sidi Maarouf", priority: "Medium", roles: "Software Dev", address: "Sidi Maarouf" },
+    { name: "Cnexia Tech", type: "Established", sector: "Tech/BPO", area: "Sidi Maarouf", priority: "Medium", roles: "Software Dev", address: "Sidi Maarouf" },
+    { name: "Edgenia Digital Factory", type: "Agency", sector: "Digital Innovation", area: "Sidi Maarouf", priority: "Medium", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "MindTech Hub", type: "Agency", sector: "IT Services", area: "Sidi Maarouf", priority: "Medium", roles: "Web/Mobile", address: "Sidi Maarouf" },
+    { name: "xHub", type: "Agency", sector: "Custom Software", area: "Sidi Maarouf", priority: "Medium", roles: "Custom Software Dev", address: "Sidi Maarouf" },
+    { name: "Morocode", type: "Agency", sector: "Web/Mobile", area: "Sidi Maarouf", priority: "Medium", roles: "Web, Mobile", address: "Sidi Maarouf" },
+    { name: "CloudLink", type: "Agency", sector: "Cloud/BI", area: "Sidi Maarouf", priority: "Medium", roles: "Cloud, Data", address: "Sidi Maarouf" },
+    { name: "CREATEQ", type: "Agency", sector: "Data Analytics", area: "Sidi Maarouf", priority: "Medium", roles: "Data Analyst", address: "Sidi Maarouf" },
+    { name: "Lactic", type: "Agency", sector: "UX/UI/Custom Software", area: "Sidi Maarouf", priority: "Medium", roles: "Frontend, Full-Stack", address: "Sidi Maarouf" },
+    { name: "Forterro", type: "Multinational", sector: "ERP/Software", area: "Sidi Maarouf", priority: "Medium", roles: "Mobile/Desktop", address: "Sidi Maarouf" },
+    { name: "ETAP", type: "Established", sector: "Engineering/Digital Twin", area: "Sidi Maarouf", priority: "Medium", roles: "Software Eng", address: "Sidi Maarouf" },
+    { name: "K7 Metaverse", type: "Startup", sector: "AI/Metaverse", area: "Sidi Maarouf", priority: "Low", roles: "AI Dev", address: "Sidi Maarouf" },
+    { name: "TakaFull", type: "Startup", sector: "FinTech/Crowdfunding", area: "Sidi Maarouf", priority: "Low", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "Verimail", type: "Startup", sector: "MarTech/Email", area: "Sidi Maarouf", priority: "Low", roles: "Backend", address: "Sidi Maarouf" },
+    { name: "Presta Freedom", type: "Startup", sector: "Home Services", area: "Sidi Maarouf", priority: "Low", roles: "Full-Stack", address: "Sidi Maarouf" },
+    { name: "Justyol", type: "Startup", sector: "E-commerce/Fashion", area: "Sidi Maarouf", priority: "Low", roles: "Full-Stack", address: "Sidi Maarouf" },
+    // OTHER AREAS (Maarif, Anfa, Sidi Belyout, Rabat)
+    { name: "Babel", type: "Multinational", sector: "IT Services/Consulting", area: "Maarif/Zerktouni", priority: "High", roles: "Java/Angular", address: "140 Bd Mohamed Zerktouni, Palmier Business Center" },
+    { name: "McKinsey Digital", type: "Multinational", sector: "Consulting/Technology", area: "Maarif/Zerktouni", priority: "Medium", roles: "Senior SE", address: "Centre d'Affaires AnfaPlace, Bd de la Corniche" },
+    { name: "SQLI", type: "Multinational", sector: "Digital Transformation", area: "Maarif/Zerktouni", priority: "High", roles: "Full-Stack, Frontend", address: "Maarif, Casablanca" },
+    { name: "BCG X", type: "Multinational", sector: "Consulting/Technology", area: "Hay Hassani / Casa Anfa", priority: "Medium", roles: "Senior SE", address: "CFC Cube Tower, Hay Hassani" },
+    { name: "SBS (Sopra Banking Software)", type: "Established", sector: "FinTech/Core Banking", area: "Sidi Belyout / Marina", priority: "High", roles: "Backend, SQL", address: "Marina, Immeuble IVOIRE, Bd des Almohades" },
+    { name: "AVL Maroc", type: "Established", sector: "Automotive/BI", area: "Rabat (Technopolis)", priority: "Medium", roles: "BI Web, .NET", address: "Technopolis Rabat Shore, Salé (Train from Casa)" }
+  ];
+
+  // helper to get Google Maps directions URL from Caserne Mly Youssef to a textual destination
+  function getGoogleMapsLink(companyName, addressHint, area) {
+    let destination = "";
+    if (area === "Sidi Maarouf") destination = "Casanearshore+Park+Sidi+Maarouf+Casablanca";
+    else if (area === "Maarif/Zerktouni") destination = "Bd+Mohamed+Zerktouni+Casablanca";
+    else if (area === "Hay Hassani / Casa Anfa") destination = "CFC+Cube+Tower+Hay+Hassani+Casablanca";
+    else if (area === "Sidi Belyout / Marina") destination = "Marina+Casablanca+Bd+des+Almohades";
+    else if (area === "Rabat (Technopolis)") destination = "Technopolis+Rabat+Shore+Salé";
+    else destination = encodeURIComponent(addressHint.replace(/ /g, "+"));
+    const origin = "Caserne+Mly+Youssef+Chellalate+Casablanca";
+    return `https://www.google.com/maps/dir/${origin}/${destination}`;
+  }
+
+  function getAreaRouteHint(area) {
+    if (area === "Sidi Maarouf") return "🚌 L902 → L17/L97 → L31 (60-75 min)";
+    if (area === "Maarif/Zerktouni") return "🚍 L902 → L38/L60/L97 (55-70 min)";
+    if (area === "Hay Hassani / Casa Anfa") return "🚍 L902 → L17/L38 (55-65 min)";
+    if (area === "Sidi Belyout / Marina") return "🚍 L902 → L17/L38 → Marina (60-70 min)";
+    if (area === "Rabat (Technopolis)") return "🚆 Train Casa-Voyageurs → Rabat-Agdal + taxi";
+    return "🚌 Check main route guide";
+  }
+
+  function renderCompanies(filterType = "all") {
+    const grid = document.getElementById("companiesGrid");
+    let filtered = [...companiesData];
+    
+    if (filterType === "High") filtered = filtered.filter(c => c.priority === "High");
+    else if (filterType === "Medium") filtered = filtered.filter(c => c.priority === "Medium");
+    else if (filterType === "Sidi Maarouf") filtered = filtered.filter(c => c.area === "Sidi Maarouf");
+    
+    grid.innerHTML = "";
+    filtered.forEach(company => {
+      const card = document.createElement("div");
+      card.className = "company-card";
+      const priorityClass = `priority-${company.priority}`;
+      const mapUrl = getGoogleMapsLink(company.name, company.address, company.area);
+      const routeHint = getAreaRouteHint(company.area);
+      
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+          <span class="priority-tag ${priorityClass}">${company.priority} priority</span>
+          <span style="font-size: 0.7rem; background:#eef2ff; padding:2px 8px; border-radius: 20px;">${company.type}</span>
+        </div>
+        <div class="company-name">
+          ${company.name}
+        </div>
+        <div class="type-sector">
+          <span>🔹 ${company.sector}</span> &nbsp;| 📍 ${company.area === "Rabat (Technopolis)" ? "🚆 Rabat" : company.area}
+        </div>
+        <div class="roles">
+          🧩 ${company.roles}
+        </div>
+        <div style="font-size: 0.75rem; color: #2c3e66; margin: 8px 0;">
+          📍 ${company.address}
+        </div>
+        <div class="route-link">
+          <span class="map-icon">🗺️</span> ${routeHint}
+        </div>
+        <div style="margin-top: 10px; font-size: 0.7rem; color:#2563eb; text-decoration:underline;">
+          🧭 Click card → Google Maps from Caserne Mly Youssef
+        </div>
+      `;
+      card.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.open(mapUrl, "_blank");
+      });
+      grid.appendChild(card);
+    });
+    if (filtered.length === 0) {
+      grid.innerHTML = "<div style='padding:40px; text-align:center; background:white; border-radius:32px;'>No companies match this filter.</div>";
+    }
+  }
+
+  // filter interactions
+  const btns = document.querySelectorAll(".filter-btn");
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filterVal = btn.getAttribute("data-filter");
+      renderCompanies(filterVal);
+    });
+  });
+  
+  renderCompanies("all");
+</script>
+</body>
+</html>
